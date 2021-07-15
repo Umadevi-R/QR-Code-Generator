@@ -28,47 +28,21 @@ public class QrCodeGeneratorController {
 	{
 		return "home";
 	}
-	@RequestMapping(
-			  value = "/getqr", 
-			  method =RequestMethod.POST)
 	
-/*    @GetMapping(value = "/generateAndDownloadQRCode/{codeText}/{width}/{height}")
-		public void download(
-				@PathVariable("codeText") String codeText,
-				@PathVariable("width") Integer width,
-				@PathVariable("height") Integer height)
-			    throws Exception {
-			        QrCodeGenerator.generateQRCodeImage(codeText, width, height, QR_CODE_IMAGE_PATH);
-			    }
-
-    @GetMapping(value = "/generateQRCode/{codeText}/{width}/{height}")
-   	public HttpEntity<byte[]> generateQRCode(
-   			@PathVariable("codeText") String codeText,
-   			@PathVariable("width") Integer width,
-   			@PathVariable("height") Integer height)
-   		    throws Exception {
-   				byte[] image =QrCodeGenerator.getQRCodeImage(codeText, width, height);
-   				HttpHeaders headers = new HttpHeaders();
-   				headers.setContentType(MediaType.IMAGE_JPEG);
-   				headers.setContentLength(image.length);
-   				return new HttpEntity<byte[]>(image, headers);
-   		    }*/
-   	// Simply trying....
+	@RequestMapping(value = "/getqr",method =RequestMethod.POST)
    	public HttpEntity<byte[]> home(@ModelAttribute QRDetails qrd) throws Exception
 	{
 		return generateQRCode(qrd.getText(),qrd.getWidth(),qrd.getHeight());
 	}
+	
    	@GetMapping(value = "/generateQRCode")
-   	public HttpEntity<byte[]> generateQRCode(
-   			String codeText,
-   			Integer width,
-   			Integer height)
-   		    throws Exception {
-   				byte[] image =QrCodeGenerator.getQRCodeImage(codeText, width, height);
-   				HttpHeaders headers = new HttpHeaders();
-   				headers.setContentType(MediaType.IMAGE_JPEG);
-   				headers.setContentLength(image.length);
-   				return new HttpEntity<byte[]>(image, headers);
-   		    }
+   	public HttpEntity<byte[]> generateQRCode(String codeText,Integer width,Integer height)throws Exception 
+	{
+		byte[] image =QrCodeGenerator.getQRCodeImage(codeText, width, height);
+   		HttpHeaders headers = new HttpHeaders();
+   		headers.setContentType(MediaType.IMAGE_JPEG);
+   		headers.setContentLength(image.length);
+   		return new HttpEntity<byte[]>(image, headers);
+   	}
 	
 }
